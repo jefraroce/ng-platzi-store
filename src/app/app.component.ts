@@ -9,6 +9,7 @@ import { products } from './products';
 })
 export class AppComponent {
   title = 'platzi-store';
+  power = 10;
 
   items = ['nicolas', 'julian', 'perez'];
 

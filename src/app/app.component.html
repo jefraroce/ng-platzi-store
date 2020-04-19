@@ -1,6 +1,12 @@
+<!-- Se encarga de decirle a Angular que debe cargar el determinado componente dependiendo de la ruta -->
+<router-outlet></router-outlet>
+
 <input type="text" [(ngModel)]="title">
 
 {{ title }}
+
+<input type="number" [(ngModel)]="power">
+{{ power | exponential }}
 
 <!-- ngIf -->
 

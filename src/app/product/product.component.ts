@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges, OnChanges, OnInit, OnDestroy } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { Product } from '../models/product.model';
 
 @Component({
   // Este selector se usa para hacer uso del componente en nuestro HTML
