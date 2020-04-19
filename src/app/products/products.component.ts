@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { products } from '../products';
+import { ProductsService } from '../products.service';
+import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-products',
@@ -8,9 +9,15 @@ import { products } from '../products';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-  products = products;
+  products: Product[];
 
-  clickProduct(productId: number) {
-    console.log('Product ID ', productId);
+  constructor(private ProductsService: ProductsService) { }
+
+  ngOnInit(): void {
+    this.products = this.ProductsService.getAllProducts();
+  }
+
+  clickProduct(id: number) {
+    console.log('Product ID ', id);
   }
 }
