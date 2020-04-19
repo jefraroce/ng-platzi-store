@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.product-grid .product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.button.button__green {
+  background-color: #00e800;
+}
+
+.button.button__green:hover {
+  background-color: #00d100;
+}
