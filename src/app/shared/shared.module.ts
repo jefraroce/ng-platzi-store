@@ -16,7 +16,11 @@ import { MaterialModule } from '../material/material.module';
     HeaderComponent,
     FooterComponent
   ],
-  // los esports es que va a permitir que otros modulos que implementen SharedModule puedan usar los componentes, directivas y tuberias declaradas aquí
+  /*
+   los esports es que va a permitir que otros modulos
+   que implementen SharedModule puedan usar los componentes,
+   directivas y tuberias declaradas aquí.
+   */
   exports: [
     ExponentialPipe,
     HighlightDirective,

@@ -29,7 +29,7 @@ export class ProductsService {
   /**
    * Actualiza los valores de un producto.
    * NOTE: Partial nos permite enviar solo los valores que se han cambio.
-   * 
+   *
    * @param id String Id del producto a actualizar.
    * @param changes Partial cambios a aplicar al producto.
    */

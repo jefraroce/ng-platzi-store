@@ -14,7 +14,11 @@ import { MaterialModule } from '../material/material.module';
     ProductsComponent,
     ProductDetailComponent
   ],
-  // los esports es que va a permitir que otros modulos que implementen SharedModule puedan usar los componentes, directivas y tuberias declaradas aquí
+  /*
+    los esports es que va a permitir que otros modulos
+    que implementen SharedModule puedan usar los componentes,
+    directivas y tuberias declaradas aquí.
+  */
   imports: [
     CommonModule,
     ProductRoutingModule,

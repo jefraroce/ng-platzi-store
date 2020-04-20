@@ -7,7 +7,7 @@ const routes: Route[] = [
     path: '',
     component: PageNotFoundComponent
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
