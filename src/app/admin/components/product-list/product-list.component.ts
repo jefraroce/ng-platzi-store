@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -21,7 +21,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private changeDetectorRefs: ChangeDetectorRef
   ) { }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -34,19 +35,31 @@ export class ProductListComponent implements OnInit {
   fetchProducts() {
     this.productsService.getAllProducts()
       .subscribe((products) => {
-        this.dataSource = new ProductListDataSource(products);
-
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
+        this.setDataSource(products);
       });
+  }
+
+  setDataSource(products) {
+    this.dataSource = new ProductListDataSource(products);
+
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
   }
 
   deleteProduct(id: string) {
     if (confirm('¿Esta usted seguro?')) {
       this.productsService.deleteProduct(id)
-        .subscribe((response) => {
-          this.fetchProducts();
+        .subscribe(() => {
+          const productIndex = this.dataSource.data.findIndex((product) => {
+            return product.id === id
+          });
+
+          if (productIndex >= 0) {
+            this.dataSource.data.splice(productIndex, 1);
+            this.setDataSource(this.dataSource.data);
+            this.snackBar.open('Genial el producto ha sido eliminado.');
+          }
         },
           (error) => {
             console.error('Error deleting product ', error);
