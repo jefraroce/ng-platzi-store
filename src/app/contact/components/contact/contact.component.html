@@ -1,12 +1,19 @@
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
-  <label for="name">Nombre</label>
-  <input type="text" name="name" formControlName="name" required>
+  <mat-form-field appearance="outline">
+    <mat-label for="name">Nombre</mat-label>
+    <input matNativeControl type="text" id="name" name="name" placeholder="Nombre" required />
+  </mat-form-field>
 
-  <label for="email">Correo Electrónico</label>
-  <input type="email" name="email" formControlName="email" required>
+  <mat-form-field appearance="outline">
+    <mat-label for="email">Correo Electrónico</mat-label>
+    <input matNativeControl type="email" id="email" name="email" placeholder="Correo Electrónico" required />
+    <mat-icon matSuffix>mail</mat-icon>
+  </mat-form-field>
 
-  <label for="message">Mensaje</label>
-  <textarea name="message" formControlName="message" required></textarea>
+  <mat-form-field appearance="outline">
+    <mat-label for="message">Mensaje</mat-label>
+    <textarea matNativeControl id="message" name="message" formControlName="message" required></textarea>
+  </mat-form-field>
 
-  <button class="button button__green" type="submit">Enviar</button>
+  <button mat-raised-button color="primary" type="submit">Enviar</button>
 </form>

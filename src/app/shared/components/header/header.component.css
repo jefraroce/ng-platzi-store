@@ -1,8 +1,22 @@
-nav > a {
+nav>a {
   padding: 5px;
   text-decoration: none;
 }
 
-nav > a.active {
-  color: red;
+nav>a.active {
+  color: lightgray;
+}
+
+.title {
+  margin-right: 5px;
+}
+
+.header-row {
+  width: 100%;
+}
+
+@media all and (max-width: 500px) {
+  span.title {
+    display: none;
+  }
 }

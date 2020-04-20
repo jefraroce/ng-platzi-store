@@ -13,10 +13,9 @@ export class ContactComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.contactForm = this.formBuilder.group({
       name: new FormControl(this.name, [
-        Validators.required,
-        Validators.minLength(1)
+        Validators.required
       ]),
-      email: '',
+      email: ['', Validators.required],
       message: ''
     });
   }

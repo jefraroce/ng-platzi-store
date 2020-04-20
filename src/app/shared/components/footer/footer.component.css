@@ -1,0 +1,13 @@
+footer mat-toolbar {
+  font-size: 1rem;
+}
+
+@media all and (max-width: 500px) {
+
+  footer,
+  footer strong {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+}
