@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod --base-href \"https://jeisson-platzi-store.herokuapp.com/\""
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +22,9 @@
     "@angular/platform-browser": "~9.1.1",
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
+    "express": "^4.17.1",
     "flexboxgrid": "^6.3.1",
+    "path": "^0.12.7",
     "rxjs": "~6.5.4",
     "swiper": "^5.3.7",
     "tslib": "^1.10.0",
