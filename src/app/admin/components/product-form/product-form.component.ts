@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Product } from '../../../models/product.model';
 
+import { MyValidators } from '../../../utils/my-validators';
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -23,7 +25,13 @@ export class ProductFormComponent implements OnInit {
   productForm = this.fb.group({
     title: [this.product.title, Validators.required],
     image: [this.product.image, Validators.required],
-    price: [this.product.price, Validators.required],
+    price: [
+      this.product.price,
+      [
+        Validators.required,
+        MyValidators.isPriceValid
+      ]
+    ],
     description: this.product.description
   });
 

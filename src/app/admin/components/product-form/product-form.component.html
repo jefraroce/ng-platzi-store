@@ -24,6 +24,9 @@
             <mat-error *ngIf="productForm.controls['price'].hasError('min')">
               El precio debe ser mayor a 0
             </mat-error>
+            <mat-error *ngIf="productForm.controls['price'].hasError('price_invalid')">
+              El precio debe ser menor a 10000
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
