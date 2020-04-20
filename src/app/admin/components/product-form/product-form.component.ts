@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProductsService } from '../../../services/products/products.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -9,11 +12,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent {
+  product: Product = {
+    id: null,
+    title: null,
+    image: null,
+    price: null,
+    description: null,
+  };
+
   productForm = this.fb.group({
-    title: [null, Validators.required],
-    image: [null, Validators.required],
-    price: [null, Validators.required],
-    description: null
+    title: [this.product.title, Validators.required],
+    image: [this.product.image, Validators.required],
+    price: [this.product.price, Validators.required],
+    description: this.product.description
   });
 
   images = [
@@ -25,28 +36,68 @@ export class ProductFormComponent {
     'assets/images/stickers2.png'
   ];
 
-  constructor(private fb: FormBuilder, private productsService: ProductsService, private _snackBar: MatSnackBar) { }
+  constructor(private fb: FormBuilder, private productsService: ProductsService, private _snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      console.log('params ', params)
+      const id = params.id;
+      if (id) {
+        this.fetchProduct(id);
+      }
+    });
+  }
 
   generateRandomId(): string {
     return Math.ceil(Math.random() * 1000).toString()
   }
 
+  fetchProduct(id: string) {
+    this.productsService.getProduct(id)
+      .subscribe((product) => {
+        this.product = product;
+        this.productForm.reset(this.product);
+      });
+  }
+
+  createProduct(product) {
+    this.productsService.createProduct(product)
+      .subscribe(
+        (newProduct) => {
+          this._snackBar.open('Felicidades tu producto ha sido creado.');
+          this.router.navigate(['/admin/products', newProduct.id, 'edit'])
+        },
+        (error) => {
+          console.error('Error ', error);
+          this._snackBar.open('No se ha podido crear el producto.');
+        });
+  }
+
+  updateProduct(product) {
+    this.productsService.updateProduct(product.id, product)
+      .subscribe(
+        (updatedProduct) => {
+          this.product = updatedProduct;
+          this._snackBar.open('Felicidades tu producto ha sido actualizado.');
+        },
+        (error) => {
+          console.error('Error ', error);
+          this._snackBar.open('No se ha podido actualizar el producto.');
+        });
+  }
+
   onSubmit() {
     if (this.productForm.valid) {
-      console.log(this.productForm.value);
+      console.log(this.productForm);
       const product = this.productForm.value;
-      product.id = this.generateRandomId();
-      console.log('Product ', product);
-      this.productsService.createProduct(product)
-        .subscribe(
-          () => {
-            this.productForm.reset();
-            this._snackBar.open('Felicidades tu producto ha sido creado.');
-          },
-          (error) => {
-            console.error('Error ', error);
-            this._snackBar.open('No se ha podido crear el producto.');
-          });
+
+      if (this.product.id) {
+        product.id = this.product.id;
+        this.updateProduct(product);
+      } else {
+        product.id = this.generateRandomId();
+        this.createProduct(product);
+      }
     } else {
       console.log(this.productForm)
       this._snackBar.open('Debes completar todos los campos obligatorios.');

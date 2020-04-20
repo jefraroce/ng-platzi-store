@@ -19,10 +19,21 @@ export class ProductsService {
   }
 
   createProduct(product: Product) {
-    return this.http.post(`${environment.urlApi}/products`, product);
+    return this.http.post<Product>(`${environment.urlApi}/products`, product);
   }
 
   deleteProduct(id: string) {
     return this.http.delete(`${environment.urlApi}/products/${id}`);
+  }
+
+  /**
+   * Actualiza los valores de un producto.
+   * NOTE: Partial nos permite enviar solo los valores que se han cambio.
+   * 
+   * @param id String Id del producto a actualizar.
+   * @param changes Partial cambios a aplicar al producto.
+   */
+  updateProduct(id: string, changes: Partial<Product>) {
+    return this.http.put<Product>(`${environment.urlApi}/products/${id}`, changes);
   }
 }

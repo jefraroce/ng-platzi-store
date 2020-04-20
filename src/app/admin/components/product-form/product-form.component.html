@@ -1,7 +1,7 @@
 <form [formGroup]="productForm" novalidate (ngSubmit)="onSubmit()" class="max-width--600 mx-auto">
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>Nuevo Producto</mat-card-title>
+      <mat-card-title>{{ product.id ? 'Editando' : 'Nuevo' }} Producto</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -54,7 +54,11 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Crear</button>
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>save</mat-icon>&nbsp;
+        {{ product.id ? 'Actualizar' : 'Crear' }}
+      </button>
+      <a mat-button color="secondary" routerLink="/admin/products">Volver a la lista</a>
     </mat-card-actions>
   </mat-card>
 </form>

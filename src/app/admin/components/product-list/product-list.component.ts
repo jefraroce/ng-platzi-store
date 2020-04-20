@@ -21,7 +21,7 @@ export class ProductListComponent implements OnInit {
   constructor(private productsService: ProductsService) { }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'image', 'title', 'price'];
+  displayedColumns = ['id', 'image', 'title', 'description', 'price', 'actions'];
 
   ngOnInit() {
     this.fetchProducts();
@@ -30,7 +30,6 @@ export class ProductListComponent implements OnInit {
   fetchProducts() {
     this.productsService.getAllProducts()
       .subscribe((products) => {
-        console.log(products);
         this.dataSource = new ProductListDataSource(products);
 
         this.dataSource.sort = this.sort;
