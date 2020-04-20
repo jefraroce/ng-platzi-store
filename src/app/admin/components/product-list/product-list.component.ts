@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ProductListDataSource } from './product-list-datasource';
 import { Product } from '../../../models/product.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ProductsService } from '../../../services/products/products.service';
 
@@ -18,7 +19,10 @@ export class ProductListComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<Product>;
   dataSource: ProductListDataSource;
 
-  constructor(private productsService: ProductsService) { }
+  constructor(
+    private productsService: ProductsService,
+    private snackBar: MatSnackBar
+  ) { }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'image', 'title', 'description', 'price', 'actions'];
@@ -38,4 +42,16 @@ export class ProductListComponent implements OnInit {
       });
   }
 
+  deleteProduct(id: string) {
+    if (confirm('¿Esta usted seguro?')) {
+      this.productsService.deleteProduct(id)
+        .subscribe((response) => {
+          this.fetchProducts();
+        },
+          (error) => {
+            console.error('Error deleting product ', error);
+            this.snackBar.open('No se ha podido eliminar el producto.');
+          });
+    }
+  }
 }
