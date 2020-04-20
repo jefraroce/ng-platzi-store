@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod --base-href \"https://jeisson-platzi-store.herokuapp.com/\""
+    "heroku-postbuild": "ng build --prod --base-href \"https://jeisson-platzi-store.herokuapp.com/\""
   },
   "private": true,
   "dependencies": {
