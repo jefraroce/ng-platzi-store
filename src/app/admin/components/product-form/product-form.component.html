@@ -1,0 +1,60 @@
+<form [formGroup]="productForm" novalidate (ngSubmit)="onSubmit()" class="max-width--600 mx-auto">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Nuevo Producto</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <input matInput placeholder="Titulo" formControlName="title" required>
+            <mat-error *ngIf="productForm.controls['title'].hasError('required')">
+              El titulo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <input matInput type="number" min="0" placeholder="Precio" formControlName="price">
+            <mat-error *ngIf="productForm.controls['price'].hasError('required')">
+              El precio es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="productForm.controls['price'].hasError('min')">
+              El precio debe ser mayor a 0
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Imagen" formControlName="image" appearance="outline">
+              <mat-option *ngFor="let image of images" [value]="image">
+                {{ image }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="productForm.controls['image'].hasError('required')">
+              La imagen es <strong>requerida</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="description">Descripción</mat-label>
+            <textarea matNativeControl id="description" name="description" formControlName="description"
+              required></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Crear</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

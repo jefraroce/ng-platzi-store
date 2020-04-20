@@ -43,3 +43,26 @@ body {
 .container {
   min-height: calc(100vh - 128px);
 }
+
+.max-width--600 {
+  max-width: 600px;
+  width: 100%;
+}
+
+.max-width--900 {
+  max-width: 900px;
+  width: 100%;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}
+
+.thumbnail {
+  width: 80px;
+  height: auto;
+}

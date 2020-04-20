@@ -11,13 +11,20 @@ import { Product } from '../../../models/product.model';
 export class ProductsComponent {
   products: Product[];
 
-  constructor(private ProductsService: ProductsService) { }
+  constructor(private productsService: ProductsService) { }
 
   ngOnInit(): void {
-    this.products = this.ProductsService.getAllProducts();
+    this.fetchProducts();
   }
 
   clickProduct(id: number) {
     console.log('Product ID ', id);
+  }
+
+  fetchProducts() {
+    this.productsService.getAllProducts()
+      .subscribe((products) => {
+        this.products = products;
+      });
   }
 }

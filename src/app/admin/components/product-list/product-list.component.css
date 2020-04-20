@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  width: calc(100% - 32px);
+  box-sizing: border-box;
+}
+
+.table-container {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.full-width-table {
+  width: 100%;
+}
