@@ -1,14 +1,19 @@
-footer mat-toolbar {
-  font-size: 1rem;
-  text-align: center;
+footer {
+  background: #673ab7;
+  color: white;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
-@media all and (max-width: 500px) {
+footer ul {
+  list-style: none;
+}
 
-  footer,
-  footer strong {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    word-wrap: break-word;
-  }
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: lightgray;
 }

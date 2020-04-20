@@ -1,7 +1,47 @@
 <footer>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      Hecho con&nbsp;<mat-icon>favorite</mat-icon>&nbsp;por&nbsp;<strong>Jeisson Francois Rosas Céspedes</strong>
-    </mat-toolbar-row>
-  </mat-toolbar>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="box">
+          <h3>Productos</h3>
+          <ul>
+            <li>
+              <a routerLink="/products" [queryParams]="{ type: 'news' }">Nuevos Productos</a>
+            </li>
+            <li>
+              <a routerLink="/products" [queryParams]="{ type: 'offer' }">En oferta</a>
+            </li>
+            <li>
+              <a routerLink="/products" [queryParams]="{ type: 'latest' }">Últimos productos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <div class="box">
+          <h3>Acerca de PlatziStore</h3>
+          <ul>
+            <li><a routerLink="/about-us">Sobre nosotros</a></li>
+            <li><a routerLink="/stores">Nuestras tiendas</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <div class="box">
+          <h3>Contacto</h3>
+          <mat-form-field>
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput placeholder="Digite su correo" [formControl]="emailField" type="email">
+            <mat-error *ngIf="!emailField.valid">
+              El valor ingresado no es válido.
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button [disabled]="emailField.invalid" (click)="sendMail()">enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 5px; text-align: center;">
+    Hecho con&nbsp;<mat-icon>favorite</mat-icon>&nbsp;por&nbsp;<strong>Jeisson Francois Rosas Céspedes</strong>
+  </div>
 </footer>

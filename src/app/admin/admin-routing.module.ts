@@ -11,12 +11,12 @@ const routes: Routes = [
     component: NavComponent,
     children: [
       {
-        path: 'create',
-        component: ProductFormComponent
-      },
-      {
         path: 'products',
         component: ProductListComponent
+      },
+      {
+        path: 'products/new',
+        component: ProductFormComponent
       },
       {
         path: 'products/:id/edit',
