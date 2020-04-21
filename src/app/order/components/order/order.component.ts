@@ -30,8 +30,8 @@ export class OrderComponent implements OnInit {
             const index = groupedProducts.findIndex((gp) => gp.id === product.id);
 
             if (index >= 0) {
-              groupedProducts[index].quantity += 1
-              groupedProducts[index].total += product.price
+              groupedProducts[index].quantity += 1;
+              groupedProducts[index].total += product.price;
             } else {
               groupedProducts.push({
                 ...product,
@@ -39,7 +39,7 @@ export class OrderComponent implements OnInit {
                 total: product.price
               });
             }
-          })
+          });
 
           return groupedProducts;
         })
@@ -52,22 +52,3 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void { }
 
 }
-
-var a = [
-  {
-    product: {
-      id: '1',
-      name: ''
-    },
-    quantity: 1,
-    total: 1000
-  },
-  {
-    product: {
-      id: '1',
-      name: ''
-    },
-    quantity: 2,
-    total: 500
-  }
-]

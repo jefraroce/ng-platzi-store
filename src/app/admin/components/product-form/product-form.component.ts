@@ -3,10 +3,14 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProductsService } from '../../../services/products/products.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Product } from '../../../models/product.model';
 
 import { MyValidators } from '../../../utils/my-validators';
+
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-form',
@@ -14,6 +18,8 @@ import { MyValidators } from '../../../utils/my-validators';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  isProcessing = false;
+  previewImage$: Observable<any>;
   product: Product = {
     id: null,
     title: null,
@@ -35,21 +41,13 @@ export class ProductFormComponent implements OnInit {
     description: this.product.description
   });
 
-  images = [
-    'assets/images/camiseta.png',
-    'assets/images/hoodie.png',
-    'assets/images/mug.png',
-    'assets/images/pin.png',
-    'assets/images/stickers1.png',
-    'assets/images/stickers2.png'
-  ];
-
   constructor(
     private fb: FormBuilder,
     private productsService: ProductsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private angularFireStorage: AngularFireStorage
   ) { }
 
   ngOnInit(): void {
@@ -99,16 +97,42 @@ export class ProductFormComponent implements OnInit {
         });
   }
 
+  uploadFile(event) {
+    const file = event.target.files[0];
+    console.log('file ', file);
+
+    // Ruta que usara en firebase para almacenar el archivo
+    const path = `images/${file.name}`;
+    const fileRef = this.angularFireStorage.ref(path);
+    const task = this.angularFireStorage.upload(path, file);
+
+    this.isProcessing = true;
+    task.snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.previewImage$ = fileRef.getDownloadURL();
+          this.previewImage$.toPromise()
+            .then((imageUrl) => {
+              this.productForm.get('image').setValue(imageUrl);
+              this.isProcessing = false;
+            })
+            .catch((error) => {
+              console.error('Error uploading image: ', error);
+            });
+        })
+      )
+      .subscribe();
+  }
+
   onSubmit() {
     if (this.productForm.valid) {
-      const product = this.productForm.value;
+      this.product = Object.assign({}, this.product, this.productForm.value);
 
       if (this.product.id) {
-        product.id = this.product.id;
-        this.updateProduct(product);
+        this.updateProduct(this.product);
       } else {
-        product.id = this.generateRandomId();
-        this.createProduct(product);
+        this.product.id = this.generateRandomId();
+        this.createProduct(this.product);
       }
     } else {
       this.snackBar.open('Debes completar todos los campos obligatorios.', 'cerrar');

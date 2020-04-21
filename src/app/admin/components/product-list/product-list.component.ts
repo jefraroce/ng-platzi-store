@@ -52,7 +52,7 @@ export class ProductListComponent implements OnInit {
       this.productsService.deleteProduct(id)
         .subscribe(() => {
           const productIndex = this.dataSource.data.findIndex((product) => {
-            return product.id === id
+            return product.id === id;
           });
 
           if (productIndex >= 0) {

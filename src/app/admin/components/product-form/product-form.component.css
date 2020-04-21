@@ -25,3 +25,9 @@
 .col:last-child {
   margin-right: 0;
 }
+
+img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+}

@@ -32,17 +32,10 @@
       </div>
 
       <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-select placeholder="Imagen" formControlName="image" appearance="outline">
-              <mat-option *ngFor="let image of images" [value]="image">
-                {{ image }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="productForm.controls['image'].hasError('required')">
-              La imagen es <strong>requerida</strong>
-            </mat-error>
-          </mat-form-field>
+        <div class="col-xs">
+          <img *ngIf="((previewImage$ | async) || product.image) as image" [src]="image" alt="">
+          <input type="hidden" formControlName="image" />
+          <input type="file" (change)="uploadFile($event)">
         </div>
       </div>
 
@@ -57,7 +50,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">
+      <button mat-raised-button color="primary" type="submit" [disabled]="isProcessing">
         <mat-icon>save</mat-icon>&nbsp;
         {{ product.id ? 'Actualizar' : 'Crear' }}
       </button>
