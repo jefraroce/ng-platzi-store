@@ -58,12 +58,12 @@ export class ProductListComponent implements OnInit {
           if (productIndex >= 0) {
             this.dataSource.data.splice(productIndex, 1);
             this.setDataSource(this.dataSource.data);
-            this.snackBar.open('Genial el producto ha sido eliminado.');
+            this.snackBar.open('Genial el producto ha sido eliminado.', 'cerrar');
           }
         },
           (error) => {
             console.error('Error deleting product ', error);
-            this.snackBar.open('No se ha podido eliminar el producto.');
+            this.snackBar.open('No se ha podido eliminar el producto.', 'cerrar');
           });
     }
   }

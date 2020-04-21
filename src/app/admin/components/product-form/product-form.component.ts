@@ -77,12 +77,12 @@ export class ProductFormComponent implements OnInit {
     this.productsService.createProduct(product)
       .subscribe(
         (newProduct) => {
-          this.snackBar.open('Felicidades tu producto ha sido creado.');
+          this.snackBar.open('Felicidades tu producto ha sido creado.', 'cerrar');
           this.router.navigate(['/admin/products', newProduct.id, 'edit']);
         },
         (error) => {
           console.error('Error ', error);
-          this.snackBar.open('No se ha podido crear el producto.');
+          this.snackBar.open('No se ha podido crear el producto.', 'cerrar');
         });
   }
 
@@ -91,11 +91,11 @@ export class ProductFormComponent implements OnInit {
       .subscribe(
         (updatedProduct) => {
           this.product = updatedProduct;
-          this.snackBar.open('Felicidades tu producto ha sido actualizado.');
+          this.snackBar.open('Felicidades tu producto ha sido actualizado.', 'cerrar');
         },
         (error) => {
           console.error('Error ', error);
-          this.snackBar.open('No se ha podido actualizar el producto.');
+          this.snackBar.open('No se ha podido actualizar el producto.', 'cerrar');
         });
   }
 
@@ -111,7 +111,7 @@ export class ProductFormComponent implements OnInit {
         this.createProduct(product);
       }
     } else {
-      this.snackBar.open('Debes completar todos los campos obligatorios.');
+      this.snackBar.open('Debes completar todos los campos obligatorios.', 'cerrar');
     }
   }
 }

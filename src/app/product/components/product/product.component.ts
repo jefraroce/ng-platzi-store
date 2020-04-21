@@ -2,6 +2,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Product } from '../../../models/product.model';
 
+import { CartService } from '../../../services/cart/cart.service';
+
 @Component({
   // Este selector se usa para hacer uso del componente en nuestro HTML
   selector: 'app-product',
@@ -15,8 +17,11 @@ export class ProductComponent {
 
   today = new Date();
 
+  constructor(
+    private cartService: CartService
+  ) { }
+
   addCart() {
-    console.log('Añadir al carrito');
-    this.productClicked.emit(this.product.id);
+    this.cartService.addCart(this.product);
   }
 }
