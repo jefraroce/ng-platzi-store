@@ -16,6 +16,10 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+      },
+      {
         path: 'home',
         // Esta es la forma de cargar modulos independientes con Lazy Loading
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
@@ -28,8 +32,11 @@ const routes: Routes = [
       {
         path: 'contact',
         // Utiliza un guardian para hacer una validación antes de ir a la ruta
-        canActivate: [AdminGuard],
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
+      },
+      {
+        path: 'order',
+        loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
       },
       {
         path: 'demo',
@@ -39,6 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AdminGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {

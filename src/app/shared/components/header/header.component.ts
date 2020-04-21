@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { CartService } from '../../../services/cart/cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,17 +11,19 @@ import { CartService } from '../../../services/cart/cart.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  total: number = 0;
+  // El uso de Observable nos permite subscribirnos
+  // a un valor de una manera mucho más eficiente.
+  total$: Observable<number>;
 
   constructor(
     private cartService: CartService
   ) {
-    this.cartService.cart$.subscribe((products) => {
-      this.total = products.length;
-    })
+    this.total$ = this.cartService.cart$
+      .pipe(
+        map(products => products.length)
+      );
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }
